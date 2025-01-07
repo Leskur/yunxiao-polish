@@ -1,3 +1,10 @@
 .next-list-items [class*="dialog--sprintItemStyle"] {
   position: relative;
 }
+.dragging [draggable="true"] * {
+  pointer-events: none;
+}
+
+.dragging [draggable="true"] {
+  border-radius: 0;
+}
