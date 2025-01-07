@@ -26,18 +26,17 @@ const interval = setInterval(() => {
   });
 
   clearInterval(interval);
-}, 1000);
+}, 500);
 
 function initList() {
   const list = document.querySelector(".next-list-items");
   if (list) {
     const sortable = list;
-    const tops = Object.keys(
-      JSON.parse(localStorage.getItem("polish_tops")) || {}
-    ).reverse();
+    const tops = JSON.parse(localStorage.getItem("polish_tops")) || {};
+    const names = Object.keys(tops).sort((a, b) => tops[a] - tops[b]).reverse();
     const childNodesArray = Array.from(list.childNodes);
 
-    for (let name of tops) {
+    for (let name of names) {
       const item = childNodesArray.find((node) => {
         return (
           node.querySelector("[class^=dialog--itemName]").innerText === name
@@ -70,7 +69,7 @@ function initList() {
     });
     sortable.addEventListener("dragenter", (e) => {
       if (e.target.getAttribute("draggable") === "true") {
-        e.target.style.borderBottom = "2px dashed #000";
+        e.target.style.borderTop = "2px solid #0488de";
       }
     });
     sortable.addEventListener("dragleave", (e) => {
@@ -83,7 +82,7 @@ function initList() {
       e.preventDefault();
       if (e.target.getAttribute("draggable") === "true") {
         e.target.style.border = "";
-        sortable.insertBefore(draggedItem, e.target.nextSibling);
+        sortable.insertBefore(draggedItem, e.target);
         saveList();
       }
     });
@@ -100,5 +99,10 @@ function saveList() {
     tops[name] = index;
   });
 
-  localStorage.setItem("polish_tops", JSON.stringify(tops));
+  localStorage.setItem(
+    "polish_tops",
+    JSON.stringify(
+      Object.assign(JSON.parse(localStorage.getItem("polish_tops") || {}), tops)
+    )
+  );
 }
