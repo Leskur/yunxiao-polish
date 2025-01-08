@@ -17,9 +17,23 @@
   },
   "content_scripts": [
     {
-      "js": ["scripts/sprint.js"],
-      "css": ["styles/sprint.css"],
-      "matches": ["https://devops.aliyun.com/*/sprint/*"]
+      "js": [
+        "scripts/sprint.js"
+      ],
+      "css": [
+        "styles/sprint.css"
+      ],
+      "matches": [
+        "https://devops.aliyun.com/*/sprint/*"
+      ]
+    },
+    {
+      "js": [
+        "scripts/search.js"
+      ],
+      "matches": [
+        "https://devops.aliyun.com/projex/project/*"
+      ]
     }
   ]
 }
