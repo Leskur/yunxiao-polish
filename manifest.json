@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Yunxiao Polish",
-  "description": "aliyun devops polish",
-  "version": "0.0.1",
+  "description": "阿里云效增强工具",
+  "version": "0.0.0.1",
   "action": {
     "default_icon": {
       "16": "images/icon.png",
