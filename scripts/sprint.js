@@ -33,7 +33,9 @@ function initList() {
   if (list) {
     const sortable = list;
     const tops = JSON.parse(localStorage.getItem("polish_tops")) || {};
-    const names = Object.keys(tops).sort((a, b) => tops[a] - tops[b]).reverse();
+    const names = Object.keys(tops)
+      .sort((a, b) => tops[a] - tops[b])
+      .reverse();
     const childNodesArray = Array.from(list.childNodes);
 
     for (let name of names) {
@@ -102,7 +104,7 @@ function saveList() {
   localStorage.setItem(
     "polish_tops",
     JSON.stringify(
-      Object.assign(JSON.parse(localStorage.getItem("polish_tops") || {}), tops)
+      Object.assign(JSON.parse(localStorage.getItem("polish_tops")) || {}, tops)
     )
   );
 }
