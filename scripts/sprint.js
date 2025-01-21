@@ -1,33 +1,5 @@
 let tops = JSON.parse(localStorage.getItem("polish_tops")) || [];
 
-const interval = setInterval(() => {
-  const sprintListLeftAreaContentDom = document.querySelector(
-    "#sprintListLeftAreaContentDom"
-  );
-  if (!sprintListLeftAreaContentDom) return;
-  if (sprintListLeftAreaContentDom.querySelector(".next-list-items")) {
-    initList();
-  }
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      console.log(mutation);
-      if (mutation.type === "childList") {
-        for (let node of mutation.addedNodes) {
-          if (node.className.includes("dialog--itemList")) {
-            initList();
-          }
-        }
-      }
-    });
-  });
-
-  observer.observe(sprintListLeftAreaContentDom, {
-    childList: true,
-  });
-
-  clearInterval(interval);
-}, 500);
-
 function initList() {
   const list = document.querySelector(".next-list-items");
   if (list) {
@@ -94,7 +66,6 @@ function initList() {
 function saveList() {
   const list = document.querySelector(".next-list-items");
   const items = list.querySelectorAll("[class^=dialog--itemName]");
-  console.log(items);
   const names = Array.from(items).map((item) => item.innerText);
   const tops = {};
   names.forEach((name, index) => {
@@ -108,3 +79,17 @@ function saveList() {
     )
   );
 }
+
+const sprintObserver = new MutationObserver((mutationsList) => {
+  for (const mutation of mutationsList) {
+    if (mutation.type === "childList") {
+      for (const node of mutation.addedNodes) {
+        if (node?.classList?.value.includes("dialog--itemList")) {
+          initList();
+        }
+      }
+    }
+  }
+});
+
+sprintObserver.observe(document.body, { childList: true, subtree: true });
